@@ -4,6 +4,7 @@
 #pragma once
 
 #include "arbitrary.h"
+#include "arbitrary_constructible.h"
 
 #include <algorithm>
 #include <cstddef>
@@ -21,7 +22,7 @@ namespace testinator
     struct Arbitrary_RandomSequence
     {
       static const std::size_t N = 10;
-      using V = typename C::value_type;
+      using V = to_generatable<typename C::value_type>;
 
       static C generate(std::size_t generation, unsigned long int randomSeed)
       {
@@ -74,7 +75,10 @@ namespace testinator
   template <typename T, typename Alloc>
   struct Arbitrary<std::list<T, Alloc>>
   {
-    using output_type = std::list<T, Alloc>;
+    using V = to_generatable<T>;
+    using output_type = std::list<
+        V,
+        typename std::allocator_traits<Alloc>::template rebind_alloc<V>>;
     
     static const std::size_t N = 10;
 
@@ -84,7 +88,7 @@ namespace testinator
       if (generation == 0) return v;
       std::size_t n = N * ((generation / 100) + 1);
       std::generate_n(std::back_inserter(v), n,
-                      [&] () { return Arbitrary<T>::generate(generation++, randomSeed++); });
+                      [&] () { return Arbitrary<V>::generate(generation++, randomSeed++); });
       return v;
     }
 
@@ -92,7 +96,7 @@ namespace testinator
     {
       output_type v;
       std::generate_n(std::back_inserter(v), n,
-                      [&] () { return Arbitrary<T>::generate_n(n, randomSeed++); });
+                      [&] () { return Arbitrary<V>::generate_n(n, randomSeed++); });
       return v;
     }
 
@@ -120,7 +124,10 @@ namespace testinator
   template <typename T, typename Alloc>
   struct Arbitrary<std::forward_list<T, Alloc>>
   {
-    using output_type = std::forward_list<T, Alloc>;
+    using V = to_generatable<T>;
+    using output_type = std::forward_list<
+        V,
+        typename std::allocator_traits<Alloc>::template rebind_alloc<V>>;
     
     static const std::size_t N = 10;
 
@@ -130,7 +137,7 @@ namespace testinator
       if (generation == 0) return v;
       std::size_t n = N * ((generation / 100) + 1);
       std::generate_n(std::front_inserter(v), n,
-                      [&] () { return Arbitrary<T>::generate(generation++, randomSeed++); });
+                      [&] () { return Arbitrary<V>::generate(generation++, randomSeed++); });
       return v;
     }
 
@@ -138,7 +145,7 @@ namespace testinator
     {
       output_type v;
       std::generate_n(std::front_inserter(v), n,
-                      [&] () { return Arbitrary<T>::generate_n(n, randomSeed++); });
+                      [&] () { return Arbitrary<V>::generate_n(n, randomSeed++); });
       return v;
     }
 

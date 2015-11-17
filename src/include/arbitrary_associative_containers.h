@@ -4,6 +4,7 @@
 #pragma once
 
 #include "arbitrary.h"
+#include "arbitrary_constructible.h"
 
 #include <algorithm>
 #include <cstddef>
@@ -23,7 +24,7 @@ namespace testinator
     struct Arbitrary_Assoc
     {
       static const std::size_t N = 10;
-      using V = typename C::value_type;
+      using V = to_generatable<typename C::value_type>;
 
       static C generate(std::size_t generation, unsigned long int randomSeed)
       {

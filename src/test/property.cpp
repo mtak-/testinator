@@ -319,3 +319,50 @@ DEF_PROPERTY(Bounded, Property, const MyBoundedType& m)
 {
   return m.m_val < MyBoundedType::MAX_VAL;
 }
+
+//------------------------------------------------------------------------------
+// registered-constructor test
+
+struct CustomType
+{
+  CustomType(const std::string& v)
+    : m_val(v), length(m_val.size())
+  {}
+  
+  bool operator <(const CustomType& rhs) const
+  { return m_val < rhs.m_val; }
+  
+  std::string m_val;
+  std::size_t length;
+};
+
+TESTINATOR_REGISTER_CONSTRUCTOR(CustomType, const std::string&)
+
+DEF_PROPERTY(CustomType, Property, const CustomType& m)
+{
+  return m.m_val.size() == m.length;
+}
+
+//------------------------------------------------------------------------------
+// nested registered-constructor test
+struct CustomType2
+{
+  CustomType2(const CustomType& v)
+    : m_val(v)
+  {}
+  
+  bool operator <(const CustomType2& rhs) const
+  { return m_val < rhs.m_val; }
+  
+  CustomType m_val;
+};
+
+TESTINATOR_REGISTER_CONSTRUCTOR(CustomType2, const CustomType&)
+
+DEF_PROPERTY(CustomType2, Property, const std::set<CustomType2>& m)
+{
+  for (auto& elem : m)
+    if (elem.m_val.m_val.size() != elem.m_val.length)
+      return false;
+  return true;
+}

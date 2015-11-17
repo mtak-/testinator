@@ -8,7 +8,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 DEF_TEST(bool, Arbitrary)
 {
-  testinator::Arbitrary<bool> a;
+  testinator::ArbitraryBuilder<bool> a;
   bool v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -17,7 +17,7 @@ DEF_TEST(bool, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(char, Arbitrary)
 {
-  testinator::Arbitrary<char> a;
+  testinator::ArbitraryBuilder<char> a;
   char v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -26,7 +26,7 @@ DEF_TEST(char, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(signedchar, Arbitrary)
 {
-  testinator::Arbitrary<signed char> a;
+  testinator::ArbitraryBuilder<signed char> a;
   signed char v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -35,7 +35,7 @@ DEF_TEST(signedchar, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(unsignedchar, Arbitrary)
 {
-  testinator::Arbitrary<unsigned char> a;
+  testinator::ArbitraryBuilder<unsigned char> a;
   unsigned char v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -44,7 +44,7 @@ DEF_TEST(unsignedchar, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(wchar_t, Arbitrary)
 {
-  testinator::Arbitrary<wchar_t> a;
+  testinator::ArbitraryBuilder<wchar_t> a;
   wchar_t v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -53,7 +53,7 @@ DEF_TEST(wchar_t, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(char16_t, Arbitrary)
 {
-  testinator::Arbitrary<char16_t> a;
+  testinator::ArbitraryBuilder<char16_t> a;
   char16_t v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -62,7 +62,7 @@ DEF_TEST(char16_t, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(char32_t, Arbitrary)
 {
-  testinator::Arbitrary<char32_t> a;
+  testinator::ArbitraryBuilder<char32_t> a;
   char32_t v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -71,7 +71,7 @@ DEF_TEST(char32_t, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(short, Arbitrary)
 {
-  testinator::Arbitrary<short> a;
+  testinator::ArbitraryBuilder<short> a;
   short v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -80,7 +80,7 @@ DEF_TEST(short, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(unsignedshort, Arbitrary)
 {
-  testinator::Arbitrary<unsigned short> a;
+  testinator::ArbitraryBuilder<unsigned short> a;
   unsigned short v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -89,7 +89,7 @@ DEF_TEST(unsignedshort, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(int, Arbitrary)
 {
-  testinator::Arbitrary<int> a;
+  testinator::ArbitraryBuilder<int> a;
   int v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -98,7 +98,7 @@ DEF_TEST(int, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(unsignedint, Arbitrary)
 {
-  testinator::Arbitrary<unsigned int> a;
+  testinator::ArbitraryBuilder<unsigned int> a;
   unsigned int v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -107,7 +107,7 @@ DEF_TEST(unsignedint, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(long, Arbitrary)
 {
-  testinator::Arbitrary<long> a;
+  testinator::ArbitraryBuilder<long> a;
   long v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -116,7 +116,7 @@ DEF_TEST(long, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(unsignedlong, Arbitrary)
 {
-  testinator::Arbitrary<unsigned long> a;
+  testinator::ArbitraryBuilder<unsigned long> a;
   unsigned long v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -125,7 +125,7 @@ DEF_TEST(unsignedlong, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(longlong, Arbitrary)
 {
-  testinator::Arbitrary<long long> a;
+  testinator::ArbitraryBuilder<long long> a;
   long long v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -134,7 +134,7 @@ DEF_TEST(longlong, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(unsignedlonglong, Arbitrary)
 {
-  testinator::Arbitrary<unsigned long long> a;
+  testinator::ArbitraryBuilder<unsigned long long> a;
   unsigned long long v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -143,7 +143,7 @@ DEF_TEST(unsignedlonglong, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(float, Arbitrary)
 {
-  testinator::Arbitrary<float> a;
+  testinator::ArbitraryBuilder<float> a;
   float v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -152,7 +152,7 @@ DEF_TEST(float, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(double, Arbitrary)
 {
-  testinator::Arbitrary<double> a;
+  testinator::ArbitraryBuilder<double> a;
   double v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -161,7 +161,7 @@ DEF_TEST(double, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(longdouble, Arbitrary)
 {
-  testinator::Arbitrary<long double> a;
+  testinator::ArbitraryBuilder<long double> a;
   long double v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -170,7 +170,7 @@ DEF_TEST(longdouble, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(vector, Arbitrary)
 {
-  testinator::Arbitrary<vector<int>> a;
+  testinator::ArbitraryBuilder<vector<int>> a;
   vector<int> v = a.generate(1,0);
   vector<vector<int>> vv = a.shrink(v);
   return vv.size() == 2
@@ -181,7 +181,7 @@ DEF_TEST(vector, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(string, Arbitrary)
 {
-  testinator::Arbitrary<string> a;
+  testinator::ArbitraryBuilder<string> a;
   string v = a.generate(1,0);
   vector<string> vv = a.shrink(v);
   return vv.size() == 2
@@ -192,7 +192,7 @@ DEF_TEST(string, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(deque, Arbitrary)
 {
-  testinator::Arbitrary<deque<int>> a;
+  testinator::ArbitraryBuilder<deque<int>> a;
   deque<int> v = a.generate(1,0);
   vector<deque<int>> vv = a.shrink(v);
   return vv.size() == 2
@@ -203,7 +203,7 @@ DEF_TEST(deque, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(list, Arbitrary)
 {
-  testinator::Arbitrary<list<int>> a;
+  testinator::ArbitraryBuilder<list<int>> a;
   list<int> v = a.generate(1,0);
   vector<list<int>> vv = a.shrink(v);
   return vv.size() == 2
@@ -214,7 +214,7 @@ DEF_TEST(list, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(forward_list, Arbitrary)
 {
-  testinator::Arbitrary<forward_list<int>> a;
+  testinator::ArbitraryBuilder<forward_list<int>> a;
   forward_list<int> v = a.generate(1,0);
   vector<forward_list<int>> vv = a.shrink(v);
 
@@ -236,7 +236,7 @@ DEF_TEST(forward_list, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(set, Arbitrary)
 {
-  testinator::Arbitrary<set<int>> a;
+  testinator::ArbitraryBuilder<set<int>> a;
   set<int> v = a.generate(1,0);
   vector<set<int>> vv = a.shrink(v);
   return vv.size() == 2
@@ -247,7 +247,7 @@ DEF_TEST(set, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(multiset, Arbitrary)
 {
-  testinator::Arbitrary<multiset<int>> a;
+  testinator::ArbitraryBuilder<multiset<int>> a;
   multiset<int> v = a.generate(1,0);
   vector<multiset<int>> vv = a.shrink(v);
   return vv.size() == 2
@@ -258,7 +258,7 @@ DEF_TEST(multiset, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(unordered_set, Arbitrary)
 {
-  testinator::Arbitrary<unordered_set<int>> a;
+  testinator::ArbitraryBuilder<unordered_set<int>> a;
   unordered_set<int> v = a.generate(1,0);
   vector<unordered_set<int>> vv = a.shrink(v);
   return vv.size() == 2
@@ -269,7 +269,7 @@ DEF_TEST(unordered_set, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(pair, Arbitrary)
 {
-  testinator::Arbitrary<pair<int, float>> a;
+  testinator::ArbitraryBuilder<pair<int, float>> a;
   pair<int, float> v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -278,7 +278,7 @@ DEF_TEST(pair, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(tuple, Arbitrary)
 {
-  testinator::Arbitrary<tuple<int, float>> a;
+  testinator::ArbitraryBuilder<tuple<int, float>> a;
   tuple<int, float> v = a.generate(0,0);
   a.shrink(v);
   return true;
@@ -287,7 +287,7 @@ DEF_TEST(tuple, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(map, Arbitrary)
 {
-  testinator::Arbitrary<map<int, float>> a;
+  testinator::ArbitraryBuilder<map<int, float>> a;
   map<int, float> v = a.generate(1,0);
   vector<map<int, float>> vv = a.shrink(v);
   return vv.size() == 2
@@ -298,7 +298,7 @@ DEF_TEST(map, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(multimap, Arbitrary)
 {
-  testinator::Arbitrary<multimap<int, float>> a;
+  testinator::ArbitraryBuilder<multimap<int, float>> a;
   multimap<int, float> v = a.generate(1,0);
   vector<multimap<int, float>> vv = a.shrink(v);
   return vv.size() == 2
@@ -309,7 +309,7 @@ DEF_TEST(multimap, Arbitrary)
 //------------------------------------------------------------------------------
 DEF_TEST(unordered_map, Arbitrary)
 {
-  testinator::Arbitrary<unordered_map<int, float>> a;
+  testinator::ArbitraryBuilder<unordered_map<int, float>> a;
   unordered_map<int, float> v = a.generate(1,0);
   vector<unordered_map<int, float>> vv = a.shrink(v);
   return vv.size() == 2

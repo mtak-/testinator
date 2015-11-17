@@ -4,6 +4,7 @@
 #pragma once
 
 #include "arbitrary.h"
+#include "arbitrary_constructible.h"
 #include "function_traits.h"
 #include "property.h"
 #include "test_macros.h"
@@ -147,7 +148,7 @@ namespace testinator
           std::size_t num, std::size_t N)
       {
         auto seed = GetTestRegistry().RNG()();
-        auto t = Arbitrary<argTuple>::generate_n(N, seed);
+        auto t = proxy_to_t(ArbitraryBuilder<argTuple>::generate_n(N, seed));
         auto d = function_traits<U>::apply_timed(num, m_u, std::move(t));
         return std::chrono::duration_cast<std::chrono::nanoseconds>(d).count();
       }

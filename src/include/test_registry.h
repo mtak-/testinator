@@ -42,11 +42,11 @@ namespace testinator
     //------------------------------------------------------------------------------
     void Unregister(Test* test)
     {
-      const std::string& testName = m_testNames[test];
+      std::string testName = m_testNames[test];
       m_testNames.erase(test);
       m_tests.erase(testName);
 
-      const std::string& suiteName = m_suiteNames[test];
+      std::string suiteName = m_suiteNames[test];
       m_suiteNames.erase(test);
       auto range = m_testsBySuite.equal_range(suiteName);
       for (auto& i = range.first; i != range.second; ++i)

@@ -163,10 +163,18 @@ test.
 ## Arbitrary
 
 Testinator knows how to generate values of standard types, but if you have a
-type that you've defined, you may need to tell Testinator how to generate it. To
-do this, specialize the `Arbitrary` template. Examples are in `arbitrary_*.h`
-and `property.cpp`. The output operator, `operator<<`, should also be available
-for your type.
+type that you've defined, you may need to tell Testinator how to generate it.
+There are two ways to do this:
+
+* specialize the `Arbitrary` template. Examples are in `arbitrary_*.h`
+  and `property.cpp`. The output operator, `operator<<`, should also be
+  available for your type.
+
+* register the constructor with Testinator using the macro,
+  `TESTINATOR_REGISTER_CONSTRUCTOR(type, ConstructorParamTypes...)`. Examples
+  are in `property.cpp`. Using the macro requires that all of the
+  `ConstructorParamTypes` have `Arbitrary` specializations, or that they have
+  been registered using the above macro.
 
 `Arbitrary` supplies three static functions:
 
@@ -183,6 +191,20 @@ for your type.
 Both `generate` and `generate_n` take an argument that will be used to seed an
 RNG. On failure, the failing seed will be reported so that you can reproduce the
 test.
+
+`TESTINATOR_REGISTER_CONSTRUCTOR`'s default behavior is as follows:
+
+* `generate` and `generate_n` simply call the corresponding `generate` for a
+  tuple of `ConstructorArgTypes...` applies that tuple to your `type`'s
+  constructor.
+
+* `shrink` calls `shrink` on a tuple of the original arguments passed to your
+  `type`'s constructor (testinator stores them separately). It then takes the
+  vector of shrunken tuples and uses each element to construct an instance of
+  your `type`.
+
+If either of the above behaviors do not make sense for your type, then you will
+have to fallback to specializing `Arbitrary`.
 
 If Testinator finds that a property fails to hold for a given value, it will
 call `shrink` in an attempt to find the smallest test case that breaks the

@@ -4,6 +4,7 @@
 #pragma once
 
 #include "arbitrary.h"
+#include "arbitrary_proxy_to_t.h"
 #include "function_traits.h"
 #include "prettyprint.h"
 #include "test.h"
@@ -56,7 +57,7 @@ namespace testinator
         auto seed = m_u.m_randomSeed;
         for (std::size_t i = 0; i < N; ++i)
         {
-          auto t = Arbitrary<argTuple>::generate(i, seed);
+          auto t = ArbitraryBuilder<argTuple>::generate(i, seed);
           if (!checkSingle(std::move(t), op))
           {
             op->diagnostic(
@@ -69,23 +70,26 @@ namespace testinator
         return true;
       }
 
-      bool checkSingle(argTuple&& t, const Outputter* op)
+      bool checkSingle(to_generatable<argTuple>&& t, const Outputter* op)
       {
-        bool result = function_traits<U>::apply(m_u, t);
+        bool result = function_traits<U>::apply(m_u, proxy_to_t(t));
         if (result) return true;
 
         op->diagnostic(
             Diagnostic(Cons<Nil>()
                        << "Failed " << prettyprint(t)));
 
-        std::vector<argTuple> v = Arbitrary<argTuple>::shrink(std::move(t));
+        std::vector<to_generatable<argTuple>> v = ArbitraryBuilder<argTuple>::shrink(std::move(t));
 
         if (!v.empty())
         {
           return std::all_of(std::make_move_iterator(v.begin()),
                              std::make_move_iterator(v.end()),
-                             [this, op] (argTuple&& st)
-                             { return checkSingle(std::move(st), op); })
+                             [this, op] (to_generatable<argTuple>&& st)
+                             {
+                               static_assert(std::is_rvalue_reference<decltype(st)>::value, "");
+                               return checkSingle(std::move(st), op);
+                             })
             && result;
         }
         return false;

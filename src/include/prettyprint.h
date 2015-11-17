@@ -66,8 +66,8 @@ namespace detail
 
   // ---------------------------------------------------------------------------
   // Is the type iterable (has begin() and end())?
-  SFINAE_DETECT(begin, std::declval<T>().begin())
-  SFINAE_DETECT(end, std::declval<T>().end())
+  SFINAE_DETECT(begin, std::begin(std::declval<T>()))
+  SFINAE_DETECT(end, std::end(std::declval<T>()))
 
   template<typename T>
   using is_iterable = typename std::conditional<
